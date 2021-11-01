@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "new": "node new",
+    "gen": "node gen"
+  },
+  "type": "module",
+  "dependencies": {
+    "npm-add-script": "^1.1.0"
+  },
+  "name": "scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}
