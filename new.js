@@ -1,11 +1,6 @@
 import fs from "fs";
 import config from "./config.js";
-import {
-  componentPascalCase,
-  componentCamelCase,
-  componentLowerCase,
-  componentHyphenated,
-} from "./functions/index.js";
+import { componentPascalCase, componentCamelCase } from "./functions/index.js";
 import * as child from "child_process";
 
 import notesTemplate from "./templates/notesTemplate.js";
@@ -14,10 +9,7 @@ import storybookTemplate from "./templates/storybookTemplate.js";
 import jestTemplate from "./templates/jestTemplate.js";
 
 if (process.argv.length === 2) {
-  console.log(
-    "\x1b[31m%s\x1b[0m",
-    `Command Failed: Expected at least one argument!`
-  );
+  console.error("Expected at least one argument!");
   process.exit(1);
 }
 
@@ -35,22 +27,18 @@ if (!fs.existsSync(dir)) {
   fs.mkdirSync(dir);
 }
 
-if (!fs.existsSync(`${dir}/${componentHyphenated(componentName)}`)) {
-  fs.mkdirSync(`${dir}/${componentHyphenated(componentName)}`);
+if (!fs.existsSync(`${dir}/${componentCamelCase(componentName)}`)) {
+  fs.mkdirSync(`${dir}/${componentCamelCase(componentName)}`);
 }
 
-if (!fs.existsSync(`${dir}/${componentHyphenated(componentName)}/index.js`)) {
-  fs.writeFile(
-    `${dir}/${componentHyphenated(componentName)}/index.js`,
-    componentOutput,
-    (error) => {
-      if (error) {
-        console.warn(error);
-      }
+if (!fs.existsSync(`${dir}/${componentName}/index.js`)) {
+  fs.writeFile(`${dir}/${componentName}/index.js`, componentOutput, (error) => {
+    if (error) {
+      console.warn(error);
     }
-  );
+  });
   fs.writeFile(
-    `${dir}/${componentHyphenated(componentName)}/${componentHyphenated(componentName)}.stories.js`,
+    `${dir}/${componentName}/${componentCamelCase(componentName)}.stories.js`,
     storybookOutput,
     (error) => {
       if (error) {
@@ -58,13 +46,13 @@ if (!fs.existsSync(`${dir}/${componentHyphenated(componentName)}/index.js`)) {
       }
     }
   );
-  fs.writeFile(`${dir}/${componentHyphenated(componentName)}/notes.md`, notesOutput, (error) => {
+  fs.writeFile(`${dir}/${componentName}/notes.md`, notesOutput, (error) => {
     if (error) {
-      console.warn(error)
+      console.warn(error);
     }
   });
   fs.writeFile(
-    `${dir}/${componentHyphenated(componentName)}/${componentHyphenated(componentName)}.test.js`,
+    `${dir}/${componentName}/${componentCamelCase(componentName)}.test.js`,
     jestOutput,
     (error) => {
       if (error) {
@@ -72,26 +60,20 @@ if (!fs.existsSync(`${dir}/${componentHyphenated(componentName)}/index.js`)) {
       }
     }
   );
-
-  const data = `import ${componentName} from "@components/${componentHyphenated(
-    componentName
-  )}"`;
-  var proc = child.spawn("pbcopy");
-  proc.stdin.write(data);
-  proc.stdin.end();
-
-  console.log(
-    "\x1b[32m%s\x1b[0m",
-    `Component ${componentPascalCase(componentName)} created`
-  );
-  console.log(
-    "\x1b[32m%s\x1b[0m",
-    `${componentCamelCase(componentName)} import copied to clipboard!`
-  );
-} else {
-  console.log(
-    "\x1b[31m%s\x1b[0m",
-    `Command Failed: A component with this name already exists`
-  );
-  process.exit(1);
 }
+
+const data = `import ${componentName} from "@components/${componentCamelCase(
+  componentName
+)}"`;
+var proc = child.spawn("pbcopy");
+proc.stdin.write(data);
+proc.stdin.end();
+
+console.log(
+  "\x1b[32m%s\x1b[0m",
+  `${componentCamelCase(componentName)} Component created`
+);
+console.log(
+  "\x1b[32m%s\x1b[0m",
+  `${componentCamelCase(componentName)} import copied to clipboard!`
+);

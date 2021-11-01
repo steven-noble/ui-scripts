@@ -14,11 +14,3 @@ export const componentCamelCase = (componentName) => {
     .replace(/\s+/g, "")
     .replace(/-/g, "");
 };
-
-export const componentLowerCase = (componentName) => {
-  return componentName.toLowerCase()
-};
-
-export const componentHyphenated = (componentName) => {
-  return componentName.replace( /([a-z])([A-Z])/g, '$1-$2' ).toLowerCase();
-};
