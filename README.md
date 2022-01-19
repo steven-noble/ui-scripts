@@ -4,15 +4,15 @@ UI Scripts is a CLI tool to generate components for React projects to avoid the 
 
 ## Get Started
 
-`cd scripts` - Go into the scripts directory (Usually at the root of the project)
+`cd ui-scripts` - Navigate to the scripts directory (Usually at the root of the project)
 
-Set your Node version to `v16.5.0`
+Set your Node version to `v16.5.0` (`nvm use` with Node Version Manager)
 
-`nvm run new` - Run the 'new' command
+`node run new` - Run the 'new' command
 
 ### Alternatively
 
-Set Node to the recommended version and add a line to your `package.json` to run from the root for each script you want to use, eg: `"new": "node scripts/new"`
+Set Node to the recommended version and add a line to your `package.json` to run from the root for each script you want to use, eg: `"new": "node ui-scripts/new"`
 
 ## Creating Components
 
