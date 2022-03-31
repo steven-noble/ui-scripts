@@ -1,0 +1,14 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "description": "helper scripts",
+  "main": "css.js",
+  "scripts": {
+    "new": "node new",
+    "css": "node css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Steven Noble",
+  "license": "ISC",
+  "type": "module"
+}

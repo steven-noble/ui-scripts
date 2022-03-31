@@ -1,0 +1,20 @@
+{
+  "name": "project-setup",
+  "version": "1.0.0",
+  "scripts": {
+    "setup": "yarn install && node scripts/setup.js",
+    "reset": "rm -rf node_modules && yarn install",
+    "addNext": "npx create-next-app",
+    "addSB": "npx create-next-app",
+    "pack": "npm pack",
+    "global": "npm install -g project-setup-1.0.0.tgz"
+  },
+  "dependencies": {
+    "fs-extra": "^10.0.0",
+    "npm": "^7.16.0"
+  },
+  "bin": {
+    "main": "scripts/new.js",
+    "new": "cli.js"
+  }
+}
