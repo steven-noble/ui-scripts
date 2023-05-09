@@ -1,17 +1,22 @@
-import { componentPascalCase } from "../functions/index.js";
+const componentPascalCase = (componentName) => {
+    const lowerCase = componentName.toLowerCase()
+    const capitalise = lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1)
+    return capitalise.replace(/-(.)/g, function (match, group1) {
+        return group1.toUpperCase()
+    })
+}
 
 const template = (componentName) => `/**
  * @jest-environment jsdom
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-import ${componentPascalCase(componentName)} from './index';
+import { createRoot } from "react-dom/client";
+import ${componentName} from './index';
 
-it("${componentPascalCase(componentName)} renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDOM.render(<${componentPascalCase(componentName)} />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});`;
+it("${componentName} renders without crashing", () => {
+    const container = document.createElement("div");
+    const root = createRoot(container);
+    root.render(<${componentName} />);
+});`
 
-export default template;
+export default template
