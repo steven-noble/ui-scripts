@@ -71,3 +71,4 @@ The Jest test is a simple 'Does the component render without crashing', and can 
 -   Create a pages folder if none exists to prevent an error
 -   Create a hooks folder if none exists to prevent an error
 -   Tidy the readme with an arguments list
+-   Allow custom templates to override defaults for specific project requirements
