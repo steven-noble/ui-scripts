@@ -15,6 +15,7 @@ import pageTemplate from "./templates/pageTemplate.js";
 import storybookTemplate from "./templates/storybookTemplate.js";
 import hookTemplate from "./templates/hookTemplate.js";
 import hookStoryTemplate from "./templates/hookStoryTemplate.js";
+import stylesTemplate from "./templates/stylesTemplate.js";
 
 if (process.argv.length === 2) {
     console.error("Expected at least one argument!");
@@ -30,16 +31,32 @@ const args = process.argv.filter((arg) => arg.startsWith("--"));
 const isPage = args.indexOf("--page") > -1;
 const isHook = args.indexOf("--hook") > -1;
 const isForced = args.indexOf("--force") > -1;
+const valuesArg = process.argv
+    .slice(2)
+    .find((arg) => arg.startsWith("--props="));
+
+// Split the values by space and parse them into an array
+const props =
+    valuesArg &&
+    valuesArg
+        .split("=")[1]
+        .split(",")
+        .map((value) => value.trim());
+
+const includeScss = args.indexOf("--scss") > -1;
 
 const pageOutput = pageTemplate(componentName);
 const componentOutput = componentTemplate(
     componentName,
-    componentKebabCase(componentName)
+    componentKebabCase(componentName),
+    props,
+    includeScss
 );
 const storybookOutput = storybookTemplate(componentName);
 const jestOutput = jestTemplate(componentName);
 const hookOutput = hookTemplate(componentName);
 const hookStoryOutput = hookStoryTemplate(componentName);
+const stylesOutput = stylesTemplate(componentName);
 
 // Generates all files
 const generateFiles = () => {
@@ -103,6 +120,14 @@ const generateComponentFiles = () => {
         )}/${componentKebabCase(componentName)}.test.js`,
         jestOutput
     );
+    if (includeScss) {
+        createFile(
+            `${componentsDir}/${componentKebabCase(
+                componentName
+            )}/${componentKebabCase(componentName)}.scss`,
+            stylesOutput
+        );
+    }
 };
 
 // Files for hooks
