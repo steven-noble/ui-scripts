@@ -26,17 +26,12 @@ const template = (componentName) => `import ${componentName} from './index';
 
 export default {
     title: 'Components/${componentSplitWord(componentName)}',
-    component: ${componentName},
-    parameters: {
-        status: {
-            type: 'beta',
-        },
-    },
+    component: ${componentName}
 };
 
 const Template = (args) => <${componentName} {...args} />;
 
-export const ${componentCamelCase(componentName)} = Template.bind({});
+export const ${componentCamelCase(componentName)} = Template.bind();
 ${componentCamelCase(componentName)}.args = {};
 `
 export default template
