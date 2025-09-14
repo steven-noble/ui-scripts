@@ -24,7 +24,7 @@ const componentCamelCase = (componentName) => {
 
 const template = (componentName) => `import ${componentName} from './index';
 
-export default {
+const ${componentName} = {
     title: 'Components/${componentSplitWord(componentName)}',
     component: ${componentName},
     parameters: {
@@ -33,6 +33,8 @@ export default {
         },
     },
 };
+
+export default ${componentName}
 
 const Template = (args) => <${componentName} {...args} />;
 

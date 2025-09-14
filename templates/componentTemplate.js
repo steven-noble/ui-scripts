@@ -1,8 +1,7 @@
 const template = (
     componentName,
     componentKebabCase
-) => `import propTypes from "prop-types"
-import styles from "./${componentKebabCase}.module.scss";
+) => `import propTypes from "prop-types";
 
 interface Props {
     prop: any;
@@ -11,7 +10,7 @@ interface Props {
 const ${componentName} = ({ prop }: Props) => {
     console.log(prop)
     return (
-        <div className={styles['${componentKebabCase}']}>${componentName}</div>
+        <div className="">${componentName}</div>
     );
 }
 
